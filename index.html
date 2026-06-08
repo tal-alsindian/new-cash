@@ -53,6 +53,131 @@
             --transfer-blue-glow:rgba(21,101,192,0.35);
         }
 
+        /* ===== LOGIN SCREEN ===== */
+        #login-screen {
+            position:fixed; inset:0;
+            background:linear-gradient(145deg,#1f441a,#2D5A27,#1a3515);
+            display:flex; flex-direction:column; justify-content:center; align-items:center;
+            z-index:20000; transition:opacity 0.6s ease; padding:20px;
+        }
+        #login-screen.hidden { opacity:0; pointer-events:none; }
+
+        .login-logo {
+            width:clamp(90px,28vw,120px); height:clamp(90px,28vw,120px);
+            background:#1a1a1a; border-radius:50%; overflow:hidden;
+            display:flex; align-items:center; justify-content:center;
+            margin-bottom:16px; border:4px solid var(--forest-green-bright);
+            box-shadow:0 20px 40px -10px rgba(0,0,0,0.9),0 0 0 8px rgba(76,175,80,0.2);
+            animation:gentlePulse 2.5s infinite alternate;
+        }
+        .login-logo img { width:100%; height:100%; object-fit:cover; display:block; }
+        @keyframes gentlePulse {
+            0%   { transform:scale(1);    box-shadow:0 20px 40px -10px rgba(0,0,0,0.9),0 0 0 4px  rgba(76,175,80,0.2); }
+            100% { transform:scale(1.02); box-shadow:0 20px 40px -10px rgba(0,0,0,0.9),0 0 0 12px rgba(76,175,80,0.1); }
+        }
+
+        .login-title {
+            font-size:clamp(1.6rem,7vw,2.2rem); font-weight:900; color:var(--cream-white);
+            margin-bottom:4px; text-shadow:0 4px 12px rgba(0,0,0,0.4); text-align:center;
+        }
+        .login-subtitle {
+            font-size:0.88rem; color:var(--sandy-beige); margin-bottom:28px;
+            font-weight:600; text-align:center; opacity:0.85;
+        }
+
+        .login-card {
+            width:100%; max-width:340px;
+            background:rgba(255,249,240,0.97);
+            border-radius:32px; padding:28px 24px;
+            border:3px solid rgba(245,230,211,0.8);
+            box-shadow:0 30px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+            backdrop-filter:blur(10px);
+        }
+
+        .login-card-title {
+            font-size:1rem; font-weight:900; color:var(--forest-green);
+            margin-bottom:20px; text-align:center;
+            display:flex; align-items:center; justify-content:center; gap:8px;
+        }
+        .login-card-title i { color:var(--clay-brown); }
+
+        .login-field { margin-bottom:16px; }
+        .login-field label {
+            display:block; font-size:0.78rem; font-weight:800;
+            color:var(--clay-brown); margin-bottom:6px;
+            text-transform:uppercase; letter-spacing:0.5px;
+        }
+        .login-input-wrap { position:relative; }
+        .login-input-wrap i {
+            position:absolute; right:14px; top:50%; transform:translateY(-50%);
+            color:var(--forest-green); font-size:0.9rem; pointer-events:none;
+        }
+        .login-input {
+            width:100%; padding:13px 40px 13px 14px;
+            border:2.5px solid rgba(45,90,39,0.25); border-radius:16px;
+            font-family:'Cairo',sans-serif; font-size:1rem; font-weight:700;
+            color:var(--forest-green); background:rgba(255,255,255,0.8);
+            outline:none; transition:all 0.25s; direction:ltr; text-align:left;
+        }
+        .login-input:focus {
+            border-color:var(--forest-green);
+            background:#fff;
+            box-shadow:0 0 0 4px rgba(45,90,39,0.12);
+        }
+        .login-input.error {
+            border-color:#cc2200;
+            box-shadow:0 0 0 4px rgba(204,34,0,0.12);
+            animation:shake 0.4s ease;
+        }
+        @keyframes shake {
+            0%,100%{transform:translateX(0)}
+            20%{transform:translateX(-6px)}
+            40%{transform:translateX(6px)}
+            60%{transform:translateX(-4px)}
+            80%{transform:translateX(4px)}
+        }
+
+        .login-toggle-pw {
+            position:absolute; left:12px; top:50%; transform:translateY(-50%);
+            background:none; border:none; color:#999; cursor:pointer;
+            font-size:0.9rem; padding:4px; transition:color 0.2s;
+        }
+        .login-toggle-pw:hover { color:var(--forest-green); }
+
+        .login-error-msg {
+            background:#fff0f0; border:2px solid rgba(204,34,0,0.3);
+            border-radius:12px; padding:10px 14px; margin-bottom:14px;
+            font-size:0.82rem; font-weight:700; color:#8b0000;
+            display:none; align-items:center; gap:8px; text-align:center;
+            justify-content:center;
+        }
+        .login-error-msg.visible { display:flex; animation:fadeInErr 0.3s ease; }
+        @keyframes fadeInErr { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
+
+        .login-btn {
+            width:100%; padding:15px;
+            background:linear-gradient(145deg,var(--forest-green),#1f441a);
+            color:white; border:2px solid rgba(255,255,255,0.2);
+            border-radius:20px; font-family:'Cairo',sans-serif;
+            font-size:1rem; font-weight:900; cursor:pointer;
+            display:flex; align-items:center; justify-content:center; gap:10px;
+            transition:all 0.25s; box-shadow:0 8px 20px rgba(45,90,39,0.4);
+            margin-top:4px;
+        }
+        .login-btn:hover { transform:translateY(-2px); box-shadow:0 12px 28px rgba(45,90,39,0.55); }
+        .login-btn:active { transform:scale(0.97); }
+        .login-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+        .login-btn .btn-spinner { display:none; animation:spin 0.8s linear infinite; }
+        .login-btn.loading .btn-spinner { display:inline-block; }
+        .login-btn.loading .btn-icon { display:none; }
+        @keyframes spin { to{ transform:rotate(360deg); } }
+
+        .login-security-note {
+            text-align:center; margin-top:16px;
+            font-size:0.72rem; color:rgba(255,255,255,0.55); font-weight:600;
+            display:flex; align-items:center; justify-content:center; gap:6px;
+        }
+
         /* ===== STARTUP ===== */
         #startup-screen {
             position:fixed; inset:0;
@@ -70,10 +195,6 @@
             animation:gentlePulse 2.5s infinite alternate;
         }
         .startup-logo img { width:100%; height:100%; object-fit:cover; display:block; }
-        @keyframes gentlePulse {
-            0%   { transform:scale(1);    box-shadow:0 25px 45px -10px rgba(0,0,0,0.9),0 0 0 5px  rgba(76,175,80,0.2); }
-            100% { transform:scale(1.02); box-shadow:0 25px 45px -10px rgba(0,0,0,0.9),0 0 0 15px rgba(76,175,80,0.1); }
-        }
         .startup-title {
             font-size:clamp(2rem,8vw,3rem); font-weight:900; color:var(--cream-white);
             margin-bottom:8px; text-shadow:0 5px 15px rgba(0,0,0,0.3); text-align:center;
@@ -589,8 +710,47 @@
 <div id="animated-forest-bg"></div>
 <div class="falling-leaves" id="fallingLeaves"></div>
 
+<!-- ===== شاشة تسجيل الدخول ===== -->
+<div id="login-screen">
+    <div class="login-logo"><img src="https://iili.io/qfhk5Pt.png" alt="تل السنديان"></div>
+    <div class="login-title">🌲 تل السنديان</div>
+    <div class="login-subtitle">يرجى تسجيل الدخول للمتابعة</div>
+    <div class="login-card">
+        <div class="login-card-title"><i class="fas fa-lock"></i> تسجيل الدخول</div>
+        <div class="login-field">
+            <label>اسم المستخدم</label>
+            <div class="login-input-wrap">
+                <i class="fas fa-user"></i>
+                <input type="text" id="loginUsername" class="login-input" placeholder="أدخل اسم المستخدم" autocomplete="username" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            </div>
+        </div>
+        <div class="login-field">
+            <label>كلمة المرور</label>
+            <div class="login-input-wrap">
+                <i class="fas fa-key"></i>
+                <input type="password" id="loginPassword" class="login-input" placeholder="أدخل كلمة المرور" autocomplete="current-password" />
+                <button class="login-toggle-pw" type="button" id="togglePwBtn" tabindex="-1">
+                    <i class="fas fa-eye" id="togglePwIcon"></i>
+                </button>
+            </div>
+        </div>
+        <div class="login-error-msg" id="loginErrorMsg">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="loginErrorText">اسم المستخدم أو كلمة المرور غير صحيحة</span>
+        </div>
+        <button class="login-btn" id="loginBtn" type="button">
+            <i class="fas fa-sign-in-alt btn-icon"></i>
+            <i class="fas fa-circle-notch btn-spinner"></i>
+            دخول
+        </button>
+    </div>
+    <div class="login-security-note">
+        <i class="fas fa-shield-alt"></i> نظام محمي — تل السنديان © 2026
+    </div>
+</div>
+
 <!-- ===== شاشة البداية ===== -->
-<div id="startup-screen">
+<div id="startup-screen" style="display:none;">
     <div class="startup-logo"><img src="https://iili.io/qfhk5Pt.png" alt="تل السنديان"></div>
     <div class="startup-title">🌲 تل السنديان</div>
     <div class="startup-subtitle">شاشة الكاشير — عرض الفواتير</div>
@@ -722,12 +882,101 @@
 // ======================== CONFIG ========================
 const CONFIG = {
     API_URL:    'https://script.google.com/macros/s/AKfycbwm0ScrwRRPWVNxLlHVFtOfRimqqqHXvtcHJlUNEDFD2nl3BAHArzKCf4QadjVWwfembQ/exec',
-    // ★ نفس الـ URL المستخدم في admin.html لحفظ الطلبات ★
-   ORDERS_API_URL: 'https://script.google.com/macros/s/AKfycbwm0ScrwRRPWVNxLlHVFtOfRimqqqHXvtcHJlUNEDFD2nl3BAHArzKCf4QadjVWwfembQ/exec',
+    ORDERS_API_URL: 'https://script.google.com/macros/s/AKfycbwm0ScrwRRPWVNxLlHVFtOfRimqqqHXvtcHJlUNEDFD2nl3BAHArzKCf4QadjVWwfembQ/exec',
     TABLE_POLL_INTERVAL: 5000,
     TABLE_COUNT: 40,
     FETCH_TIMEOUT: 7000,
 };
+
+// ======================== AUTH ========================
+const AUTH = {
+    USERNAME: 'talalsindian',
+    PASSWORD: '777111',
+    SESSION_KEY: 'talsindian_auth'
+};
+
+function isLoggedIn() {
+    return sessionStorage.getItem(AUTH.SESSION_KEY) === 'true';
+}
+
+function doLogin(username, password) {
+    return username === AUTH.USERNAME && password === AUTH.PASSWORD;
+}
+
+function initLoginScreen() {
+    const loginScreen  = document.getElementById('login-screen');
+    const startupScreen = document.getElementById('startup-screen');
+    const loginBtn     = document.getElementById('loginBtn');
+    const usernameInput = document.getElementById('loginUsername');
+    const passwordInput = document.getElementById('loginPassword');
+    const errorMsg     = document.getElementById('loginErrorMsg');
+    const togglePwBtn  = document.getElementById('togglePwBtn');
+    const togglePwIcon = document.getElementById('togglePwIcon');
+
+    // إذا كانت الجلسة مفعّلة بالفعل، تخطّ شاشة الدخول مباشرة
+    if (isLoggedIn()) {
+        loginScreen.classList.add('hidden');
+        startupScreen.style.display = 'flex';
+        return;
+    }
+
+    // إظهار/إخفاء كلمة المرور
+    togglePwBtn.addEventListener('click', () => {
+        const isText = passwordInput.type === 'text';
+        passwordInput.type = isText ? 'password' : 'text';
+        togglePwIcon.className = isText ? 'fas fa-eye' : 'fas fa-eye-slash';
+    });
+
+    function attemptLogin() {
+        const user = usernameInput.value.trim();
+        const pass = passwordInput.value;
+
+        errorMsg.classList.remove('visible');
+        usernameInput.classList.remove('error');
+        passwordInput.classList.remove('error');
+
+        if (!user || !pass) {
+            document.getElementById('loginErrorText').textContent = 'يرجى إدخال اسم المستخدم وكلمة المرور';
+            errorMsg.classList.add('visible');
+            if (!user) usernameInput.classList.add('error');
+            if (!pass) passwordInput.classList.add('error');
+            return;
+        }
+
+        // تأثير التحميل
+        loginBtn.classList.add('loading');
+        loginBtn.disabled = true;
+
+        setTimeout(() => {
+            if (doLogin(user, pass)) {
+                sessionStorage.setItem(AUTH.SESSION_KEY, 'true');
+                loginScreen.classList.add('hidden');
+                startupScreen.style.display = 'flex';
+                showNotification('✅ مرحباً! تم تسجيل الدخول بنجاح', 'success');
+            } else {
+                loginBtn.classList.remove('loading');
+                loginBtn.disabled = false;
+                document.getElementById('loginErrorText').textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة';
+                errorMsg.classList.add('visible');
+                usernameInput.classList.add('error');
+                passwordInput.classList.add('error');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }, 600);
+    }
+
+    loginBtn.addEventListener('click', attemptLogin);
+
+    // السماح بالضغط على Enter للدخول
+    [usernameInput, passwordInput].forEach(input => {
+        input.addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
+        input.addEventListener('input', () => {
+            input.classList.remove('error');
+            errorMsg.classList.remove('visible');
+        });
+    });
+}
 
 // ======================== STATE ========================
 const AppState = {
@@ -798,9 +1047,7 @@ async function apiPost(params, url=CONFIG.API_URL) {
 }
 
 // ======================== ★ حفظ الطلب في قسم المبيعات ★ ========================
-// تُستدعى عند تحرير الطاولة — ترسل الطلب إلى نفس الـ API الذي يقرأه admin.html
 async function saveOrderToSales(tableNum, orderData) {
-    // إذا لم يكن هناك بيانات طلب، لا نرسل شيئاً
     if (!orderData || !Array.isArray(orderData.items) || orderData.items.length === 0) return;
 
     const total = calcTotal(orderData.items);
@@ -813,7 +1060,7 @@ async function saveOrderToSales(tableNum, orderData) {
         total:       total.toFixed(2),
         source:      'cashier',
         timestamp:   new Date().toISOString(),
-        status:      'completed'   // ← مكتمل لأن الكاشير قرر تحرير الطاولة
+        status:      'completed'
     };
 
     const fd = new URLSearchParams();
@@ -1145,14 +1392,10 @@ function printInvoice() {
     setTimeout(() => w.print(), 500);
 }
 
-// ★ تحرير الطاولة — مع حفظ الطلب في المبيعات ★
 async function freeCurrentTable() {
     const tableNum = AppState.currentTable;
     if (!tableNum) return;
-
-    // ★ إرسال الطلب إلى قسم المبيعات في admin.html قبل التحرير ★
     await saveOrderToSales(tableNum, AppState.currentOrder);
-
     await apiPost({action:'setTableStatus', tableNumber:String(tableNum), status:'free'});
     AppState.tableStatuses[String(tableNum)] = 'free';
     showNotification(`✅ تم تحرير الطاولة ${tableNum} وحفظ الطلب في المبيعات`, 'success');
@@ -1300,9 +1543,12 @@ function createLeaves() {
 document.addEventListener('DOMContentLoaded', () => {
     createLeaves();
 
+    // تهيئة شاشة تسجيل الدخول
+    initLoginScreen();
+
     document.getElementById('activateBtn').addEventListener('click', async () => {
         AppState.active = true;
-        document.getElementById('startup-screen').classList.add('hidden');
+        document.getElementById('startup-screen').style.display = 'none';
         renderTablesGrid();
         await fetchTableStatuses();
         document.getElementById('table-selection-screen').classList.add('active');
